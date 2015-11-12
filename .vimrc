@@ -32,9 +32,15 @@ else
     set ttymouse=xterm2
 end
 
-:helptags ~/.vim/doc
+":helptags ~/.vim/doc
 :set tags+=~/.vim/tags/gl
 :set tags+=~/.vim/tags/stl
+
+"""""""""""""""""""""
+" Misc/unsorted
+""""""""""""""""""""""
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
 
 
 """""""""""""""""""""

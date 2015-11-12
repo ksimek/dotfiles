@@ -1,0 +1,2 @@
+export KJB_LIB_PATH=~/work/src/lib
+export CACHE_EXPIRE_DAYS=99999
