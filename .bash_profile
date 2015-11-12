@@ -4,6 +4,9 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# bash style keybindings
+set -o vi
+
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
 HISTCONTROL=ignoredups:ignorespace
@@ -104,61 +107,67 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+export PATH=$HOME/bin:/usr/local/opt/ccache/libexec:/usr/local/bin:$PATH:/usr/local/sbin
+export LD_LIBRARY_PATH=$HOME/lib
+
 # CUDA 
-export PATH=/Users/ksimek/bin:/usr/local/opt/ccache/libexec:/usr/local/bin:$PATH:/usr/local/cuda/bin:/Users/ksimek/src/android-sdk-macosx/tools:/usr/local/sbin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/cuda/lib64
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/lib
-
-# CCACHE
-export PATH=/usr/local/Cellar/ccache/3.1.8/libexec:$PATH
-export CCACHE_SLOPPINESS=time_macros
-export CCACHE_BASEDIR=/Users/ksimek/work/src/lib/
-
-#export DYLD_LIBARY_PATH=$LD_LIBRARY_PATH
-
-if [ $HOSTNAME == "napkin" ]; then
-    echo "vim mode enabled"
-    set -o vi
+if [[ -e $HOME/.bashrc.cuda ]]; then
+    source $HOME/.bashrc.cuda
 fi
 
-export KJB_LIB_PATH=~/work/src/lib
-export CACHE_EXPIRE_DAYS=99999
+# CCACHE
+if [[ -e $HOME/.bashrc.ccache ]]; then
+    source $HOME/.bashrc.ccache
+fi
 
-if [[ $HOSTNAME =~ .*MacBook.* ]]; then
+# KJB
+if [[ -e $HOME/.bashrc.kjb ]]; then
+    source $HOME/.bashrc.kjb
+fi
+
+# MATTERPORT
+if [[ -e $HOME/.bashrc.matterport ]]; then
+echo sourcing matterport
+    source $HOME/.bashrc.matterport
+fi
+
+
+
+
+if [[ $HOSTNAME =~ .*MacBook.*  || $HOSTNAME =~ .*mac.* ]]; then
     set meta-flag on
     set input-meta on
     set output-meta on
     set convert-meta off
     export JAVA_HOME=`/usr/libexec/java_home`
+
+# send growl notification to OSX desktop
+    growl() { echo -e $'\e]9;'${1}'\007' ; return ; }
 fi
 
 export EDITOR=vim
 export SVN_EDITOR=vim
 export GIT_EDITOR=vim
+alias vi=vim
+
+export HOMEBREW_GITHUB_API_TOKEN=aa83d4d56567f5a224766879673e6325d49d5481
 
 set bell-style visible
-export MTURK_CMD_HOME=/Users/ksimek/Library/Amazon/aws-mturk-clt-1.3.0
-
-export ADIC=/Usrs/ksimek/Downloads/adic-1.2.3
-export ADIC_ARCH=i386_apple
 
 # for better plotting in octave
 #export GNUTERM='aqua'
 
-# send growl notification to OSX desktop
-growl() { echo -e $'\e]9;'${1}'\007' ; return ; }
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
 
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
-set -o vi
-
-source ~/.todo/todo_completion
-
 if [[ $(ls -1 ~/.bash_completion.d  | wc -l) -gt 0 ]]; then
     source ~/.bash_completion.d/*
 fi
 
 alias tvim='if [[ -e .vimrc ]]; then vim -u .vimrc; else echo "directory has no .vimrc. use ''vim''."; fi'
+
+# DO LAST:
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$LD_LIBRARY_PATH

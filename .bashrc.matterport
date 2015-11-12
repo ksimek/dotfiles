@@ -1,0 +1,25 @@
+EOS_ROOT=$HOME/dev/mp_vision
+use_xcode_build=0
+if [[ "$use_xcode_build" -eq 1 ]]; then
+    EOS_BUILD=$HOME/dev/mp_vision-release-xcode
+    EOS_BIN_SUBDIR=RelWithDebInfo
+else
+#    EOS_BUILD=$HOME/dev/mp_vision-release
+    EOS_BUILD=$HOME/dev/mp_vision-build
+    EOS_BIN_SUBDIR=.
+fi
+
+export EOS_ROOT
+export EOS_BUILD
+export EOS_BIN_SUBDIR
+export EOS_BIN=$EOS_BUILD/$EOS_BIN_SUBDIR
+
+rm -rf $HOME/mp_bin 
+ln -s $EOS_BIN $HOME/mp_bin
+PATH=$HOME/mp_bin:$HOME/bin:$PATH
+
+export DYLD_LIBRARY_PATH="${HOME}/dev/OpenNI2-mp_vision/Bin/x64-Release/:$EOS_BUILD:${DYLD_LIBRARY_PATH}"
+export OPENNI2_ROOT=~/dev/OpenNI2-mp_vision/
+export BOOST_ROOT=/usr/local/Cellar/boost/1.58.0  # or whatever was shown during brew install
+export OpenCV_ROOT=/usr/local/Cellar/opencv3/3.0.0/
+export OPENCV_ROOT=$OpenCV_ROOT
