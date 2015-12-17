@@ -33,8 +33,11 @@ else
 end
 
 ":helptags ~/.vim/doc
-:set tags+=~/.vim/tags/gl
-:set tags+=~/.vim/tags/stl
+:set tags+=~/.tags.d/eigen.tags
+:set tags+=~/.tags.d/eigen3.tags
+:set tags+=~/.tags.d/mp_eos.tags
+:set tags+=~/.tags.d/opencv.tags
+:set tags+=~/.tags.d/cpp_std.tags
 
 """""""""""""""""""""
 " Misc/unsorted
