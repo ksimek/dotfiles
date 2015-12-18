@@ -1,8 +1,12 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
@@ -22,11 +26,15 @@ HISTFILESIZE=50000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
@@ -100,16 +108,22 @@ fi
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  fi
 fi
 
 # CUDA 
-export PATH=/Users/ksimek/bin:/usr/local/opt/ccache/libexec:/usr/local/bin:$PATH:/usr/local/cuda/bin:/Users/ksimek/src/android-sdk-macosx/tools:/usr/local/sbin
+export PATH=$HOME/bin:/usr/local/opt/ccache/libexec:/usr/local/bin:$PATH:/usr/local/cuda/bin:/Users/ksimek/src/android-sdk-macosx/tools:/usr/local/sbin
+export PATH=$PATH:$HOME/mp_bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/local/cuda/lib64
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/lib
 
 # CCACHE
+# TODO: only enable this on my home macbook
 export PATH=/usr/local/Cellar/ccache/3.1.8/libexec:$PATH
 export CCACHE_SLOPPINESS=time_macros
 export CCACHE_BASEDIR=/Users/ksimek/work/src/lib/
@@ -155,10 +169,23 @@ export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
 set -o vi
 
-source ~/.todo/todo_completion
-
-if [[ $(ls -1 ~/.bash_completion.d  | wc -l) -gt 0 ]]; then
+if [[ -d ~/.bash_completion.d && $(ls -1 ~/.bash_completion.d  | wc -l) -gt 0 ]]; then
     source ~/.bash_completion.d/*
 fi
 
 alias tvim='if [[ -e .vimrc ]]; then vim -u .vimrc; else echo "directory has no .vimrc. use ''vim''."; fi'
+alias xclip="xclip -selection c"
+  
+  
+case "$OSTYPE" in
+   cygwin*)
+      alias open="cmd /c start"
+      ;;
+   linux*)
+      alias start="xdg-open"
+      alias open="xdg-open"
+      ;;
+   darwin*)
+      alias start="open"
+      ;;
+esac
