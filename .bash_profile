@@ -119,7 +119,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=$HOME/bin:/usr/local/opt/ccache/libexec:/usr/local/bin:$PATH:/usr/local/sbin:$HOME/mp_bin
+export PATH=$HOME/bin:$HOME/scripts:/usr/local/opt/ccache/libexec:/usr/local/bin:$PATH:/usr/local/sbin:$HOME/mp_bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/lib
 
 # KJB
@@ -171,6 +171,7 @@ fi
 
 alias tvim='if [[ -e .vimrc ]]; then vim -u .vimrc; else echo "directory has no .vimrc. use ''vim''."; fi'
 alias xclip="xclip -selection c"
+which nvim > /dev/null 2/&1 && alias vim=nvim
   
   
 case "$OSTYPE" in
@@ -185,8 +186,8 @@ case "$OSTYPE" in
       alias start="open"
       ;;
 esac
-=======
 
 # DO LAST:
 export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$LD_LIBRARY_PATH
->>>>>>> 1e75639ed610c714863cdaaf31c4e4db136701a8
+export EOS_CALDATA_VERSION=v0.5
+export EOS_CALDATA_DIR=/home/kyle/mp_calib/vision_caldata/code/
