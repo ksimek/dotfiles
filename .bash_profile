@@ -171,7 +171,7 @@ fi
 
 alias tvim='if [[ -e .vimrc ]]; then vim -u .vimrc; else echo "directory has no .vimrc. use ''vim''."; fi'
 alias xclip="xclip -selection c"
-which nvim > /dev/null 2/&1 && alias vim=nvim
+which nvim > /dev/null 2>&1 && alias vim=nvim
   
   
 case "$OSTYPE" in
