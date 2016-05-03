@@ -18,19 +18,19 @@ rm -rf $HOME/mp_bin
 ln -s $EOS_BIN $HOME/mp_bin
 PATH=$HOME/mp_bin:$HOME/bin:$PATH
 
-export DYLD_LIBRARY_PATH="${HOME}/dev/OpenNI2-mp_vision/Bin/x64-Release/:$EOS_BUILD:${DYLD_LIBRARY_PATH}"
 export OPENNI2_ROOT=~/dev/OpenNI2-mp_vision/
-export BOOST_ROOT=/usr/local/Cellar/boost/1.58.0  # or whatever was shown during brew install
-export OpenCV_ROOT=/usr/local/Cellar/opencv3/3.0.0/
+export BOOST_ROOT=/usr/local/Cellar/boost/1.60.0_1  # or whatever was shown during brew install
+export OpenCV_ROOT=/usr/local/Cellar/opencv3/3.1.0_1/
 export OPENCV_ROOT=$OpenCV_ROOT
 
 export EOS_CALDATA_VERSION=v0.5
 export EOS_CALDATA_DIR=$HOME/mp_calib/vision_caldata/code/
+export DYLD_LIBRARY_PATH="${HOME}/dev/OpenNI2-mp_vision/Bin/x64-Release/:$EOS_BUILD:$OpenCV_ROOT/lib:${DYLD_LIBRARY_PATH}"
 
 
 
 
-if [[ ~ -e $EOS_CALDATA_DIR ]]; then
+if [[ ! -e $EOS_CALDATA_DIR ]]; then
     echo "Warning: matterport calibration data not found in $EOS_CALDATA_DIR" >&2
     echo "This may result in imprecise depth data in swp files" >&2
 fi
