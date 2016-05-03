@@ -1,6 +1,6 @@
 EIGEN_INCLUDE:=$(shell ./find_eigen_include_path.sh)
 OPENCV_INCLUDE:=$(shell ./find_opencv_include_path.sh)
-CPP_INCLUDE:=$(shell ls /usr/include/c++/* -d | sort -nr | head -1)
+CPP_INCLUDE:=$(shell ls -d /usr/include/c++/* | sort -nr | head -1)
 #FLAGS:=--languages=C,+C++ --c++-kinds=+p --fields=+iaS --extra=+q --tag-relative=yes --recurse=yes
 FLAGS:=--languages=C,+C++ --c++-kinds=+p --tag-relative=yes --recurse=yes
 all:
