@@ -198,3 +198,12 @@ esac
 export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$LD_LIBRARY_PATH
 export EOS_CALDATA_VERSION=v0.5
 export EOS_CALDATA_DIR=/home/kyle/mp_calib/vision_caldata/code/
+
+if [[ -e $HOME/scripts/A.sh ]]; then 
+    alias A="source $HOME/scripts/A.sh"
+fi
+
+# for ccache:
+if [[ -d /usr/local/opt/ccache/libexec ]]; then
+    PATH=$PATH:/usr/local/opt/ccache/libexec
+fi
