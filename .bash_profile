@@ -169,6 +169,13 @@ if [[ -d ~/.bash_completion.d && $(ls -1 ~/.bash_completion.d  | wc -l) -gt 0 ]]
     source ~/.bash_completion.d/*
 fi
 
+if [[ -d ~/.bashrc.d && $(ls -1 ~/.bashrc.d | wc -l) -gt 0 ]]; then
+    for file in ~/.bashrc.d/*; do
+        echo sourcing $file
+        source $file
+    done
+fi
+
 alias tvim='if [[ -e .vimrc ]]; then vim -u .vimrc; else echo "directory has no .vimrc. use ''vim''."; fi'
 alias xclip="xclip -selection c"
 which nvim > /dev/null 2>&1 && alias vim=nvim
