@@ -1,0 +1,5 @@
+#!/bin/bash
+
+pattern=$1
+shift
+grep -Ii "$pattern" "$@" --files-with-match | vilist
