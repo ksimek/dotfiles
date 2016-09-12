@@ -9,3 +9,6 @@ fi
 if [ -f $HOME/.rvm/bin ]; then
     PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 fi
+
+
+. /home/kyle/src/torch/install/bin/torch-activate

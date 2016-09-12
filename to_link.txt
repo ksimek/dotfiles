@@ -1,0 +1,9 @@
+.bash_profile
+.bash_completion.d
+.bashrc
+.bashrc.d
+.gitignore
+.screenrc
+.scripts
+.tags
+.vimrc
