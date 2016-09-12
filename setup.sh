@@ -63,3 +63,6 @@ for file in ~/.scripts/*; do
     dst=~/bin/$(basename $file)
     try_link $file $dst
 done
+
+echo "Done."
+echo "Remember to also symlink .vimrc from the separate `dot vim` repository"
