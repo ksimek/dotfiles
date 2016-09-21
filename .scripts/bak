@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ $# -le 1 ]]; then
+    echo "filename not specified"
+    exit 1
+fi
+
+src=$1
+if [[ "${src/.bak/}" == "$src" ]]; then
+    mv "$src" "$src.bak"
+else
+    mv "$src" "${src/.bak/}"
+end

@@ -65,4 +65,4 @@ for file in ~/.scripts/*; do
 done
 
 echo "Done."
-echo "Remember to also symlink .vimrc from the separate `dot vim` repository"
+echo "Remember to also symlink .vimrc from the separate 'dot vim' repository"

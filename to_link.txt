@@ -6,4 +6,3 @@
 .screenrc
 .scripts
 .tags
-.vimrc
