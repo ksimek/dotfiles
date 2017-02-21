@@ -7,3 +7,6 @@
 *.gch
 eos.log
 *.swl
+.make_include_paths.sh
+.include_paths.txt
+.paths.txt

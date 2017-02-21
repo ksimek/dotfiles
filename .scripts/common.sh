@@ -1,4 +1,8 @@
 
+to_absolute()
+{
+    (cd "$1"; pwd)
+}
 round()
 {
     awk  'BEGIN { rounded = sprintf("%.0f", '$1'); print rounded }'

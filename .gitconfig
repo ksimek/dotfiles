@@ -1,0 +1,7 @@
+[user]
+	name = Kyle Simek
+	email = ksimek@apple.com
+[core]
+	excludesfile = ~/.gitignore
+[diff]
+    tool = vimdiff
