@@ -1,1 +1,2 @@
 alias top="top -o cpu"
+export MAKEFLAGS="-j 6"

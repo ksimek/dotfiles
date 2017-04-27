@@ -46,3 +46,7 @@ cat .include_paths.txt | while read path; do
         fi
     done
 done
+
+if [[ -f .include_paths_other.txt ]]; then
+    cat .include_paths_other.txt >> .include_paths.txt
+fi

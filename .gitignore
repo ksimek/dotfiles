@@ -9,4 +9,11 @@ eos.log
 *.swl
 .make_include_paths.sh
 .include_paths.txt
+.include_paths_other.txt
 .paths.txt
+.alternate_paths.txt
+.setup_project_vimfiles.sh
+TODO_.txt
+build
+build-xcode
+build-ios_xcode
