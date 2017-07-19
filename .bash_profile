@@ -214,4 +214,3 @@ if [[ -d /usr/local/opt/ccache/libexec ]]; then
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-

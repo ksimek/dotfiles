@@ -24,7 +24,7 @@ cd $SCRIPTPATH
     to_search=('library' 'apps' '3rd-party')
     for dir in "${to_search[@]}"; do
     (
-        find $dir | grep '/include$' 
+        find $dir | grep -i '/include$' 
     )
     done
 ) > .include_paths.txt
