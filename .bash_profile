@@ -1,7 +1,7 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-
+echo step 0
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -13,7 +13,8 @@ set -o vi
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
-HISTCONTROL=ignoredups:ignorespace
+#HISTCONTROL=ignoredups:ignorespace
+HISTCONTROL=ignoredups
 
 export CLICOLOR=1
 
@@ -32,7 +33,7 @@ shopt -s checkwinsize
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
-
+echo step 1
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -62,6 +63,7 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+echo step 2
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
@@ -78,6 +80,7 @@ xterm*|rxvt*)
     ;;
 esac
 
+echo step 3
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -95,6 +98,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+echo step 4
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -104,6 +108,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
+echo step 5
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -119,8 +124,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=$HOME/bin:$HOME/scripts:/usr/local/opt/ccache/libexec:/usr/local/bin:$PATH:/usr/local/sbin:$HOME/mp_bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/lib
+export PATH=$HOME/bin:$HOME/scripts:$PATH
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/lib
 
 # KJB
 if [[ -e $HOME/.bashrc.kjb ]]; then
@@ -163,14 +168,15 @@ set bell-style visible
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
 
-export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
+#export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
 if [[ -d ~/.bash_completion.d && $(ls -1 ~/.bash_completion.d  | wc -l) -gt 0 ]]; then
     source ~/.bash_completion.d/*
 fi
 
 if [[ -d ~/.bashrc.d && $(ls -A1 ~/.bashrc.d/ | wc -l) -gt 0 ]]; then
-    for file in $( ls -A1 ~/.bashrc.d/); do
+    # get all files except vim swapfiles ("swp", "swo", etc)
+    for file in $( ls -A1 ~/.bashrc.d/ | grep -v '\.sw[a-z]$'); do
         echo sourcing ~/.bashrc.d/$file
         source ~/.bashrc.d/$file
     done
@@ -209,8 +215,32 @@ if [[ -e $HOME/bin/cdr.sh ]]; then
 fi
 
 # for ccache:
-if [[ -d /usr/local/opt/ccache/libexec ]]; then
-    PATH=$PATH:/usr/local/opt/ccache/libexec
-fi
+#if [[ -d /usr/local/opt/ccache/libexec ]]; then
+#    PATH=$PATH:/usr/local/opt/ccache/libexec
+#fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+if greadlink --version 2> /dev/null 1>&2 ; then
+    # linux-style readlink on osx
+    alias readlink=greadlink
+fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/ksimek/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/ksimek/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/ksimek/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/ksimek/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
+# Added by Windsurf
+export PATH="/Users/ksimek/.codeium/windsurf/bin:$PATH"

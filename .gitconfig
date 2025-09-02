@@ -5,3 +5,18 @@
 	excludesfile = ~/.gitignore
 [diff]
     tool = vimdiff
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[http]
+	sslVerify = false
+[gpg]
+	format = x509
+[commit]
+	gpgsign = true
+[gpg "x509"]
+	program = /usr/local/bin/ac-sign
+[merge]
+	tool = vimdiff
